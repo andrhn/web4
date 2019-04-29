@@ -44,8 +44,47 @@ if (mysqli_num_rows($result)> 0){
       </div>
          <b><? echo $row["author"], " ", $row["date"]; ?></b>
       <p><? echo $row["context"]; ?></p>
-    <? } }?>
-    </div>
+     </div>
 
+    <? }} else {?>
+    <p>Oops...database is empty</p>
+<?}
+mysqli_close($link);
+
+
+
+
+//DELETE
+if (isset($_GET["a"])) {
+  if ($_GET["a"] == "delete"){
+  $id = $_GET["id"];
+
+
+  $link = mysqli_init();
+  $conn = mysqli_real_connect(
+    $link, 
+    $host, 
+    $user, 
+    $password, 
+    $db,
+    $port
+  );
+  if (!$link) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
+  $query = "DELETE FROM news WHERE id=$id";
+  if (mysqli_query($link, $query)) {
+    header("Refresh: 0; url=main.php");
+    echo "Record deleted successfully";
+  } else {
+    echo "Error deleting record: " . mysqli_error($link);
+  }
+
+  mysqli_close($link);
+
+}}
+?>
+
+    
   </body>
 </html>
