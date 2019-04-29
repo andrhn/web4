@@ -3,19 +3,17 @@
   	<head>
   		<meta charset="utf-8">
   		<title>Add News</title>
+  		<link rel="stylesheet" href="style.css">
 		</head> 
 
     <body>
     	<?php
     	$author = $title = $context  = "";
     	if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    	 if (empty($_POST["author"])) {
-            $authErr = "Name is required";
-        } else {
-            $auth = test_input($_POST["author"]);
+            $author = test_input($_POST["author"]);
             $title = test_input($_POST["title"]);
             $context = test_input($_POST["context"]);
-    }}
+    }
 
 		function test_input($data) {
 		        $data = trim($data);

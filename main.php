@@ -5,11 +5,12 @@
 <head>
   <meta charset="utf-8">
   <title>News Portal</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 
  <body>
-
+<div class="header">News</div>
 <?php>
 $user = 'root';
   $password = 'root';
@@ -44,6 +45,8 @@ if (mysqli_num_rows($result)> 0){
       </div>
          <b><? echo $row["author"], " ", $row["date"]; ?></b>
       <p><? echo $row["context"]; ?></p>
+      <div class="delete">
+        <a href="main.php?a=delete&id= <? echo $row["id"]; ?>">delete</a>
      </div>
 
     <? }} else {?>
@@ -52,9 +55,6 @@ if (mysqli_num_rows($result)> 0){
 mysqli_close($link);
 
 
-
-
-//DELETE
 if (isset($_GET["a"])) {
   if ($_GET["a"] == "delete"){
   $id = $_GET["id"];
@@ -72,9 +72,10 @@ if (isset($_GET["a"])) {
   if (!$link) {
     die("Connection failed: " . mysqli_connect_error());
   }
-  $query = "DELETE FROM news WHERE id=$id";
+
+  $query = "DELETE FROM newsnews WHERE id=$id";
   if (mysqli_query($link, $query)) {
-    header("Refresh: 0; url=main.php");
+    header("Refresh: 3; url=main.php");
     echo "Record deleted successfully";
   } else {
     echo "Error deleting record: " . mysqli_error($link);
